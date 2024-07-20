@@ -1,0 +1,14 @@
+{
+	"hello": "Hello",
+	"welcome": "Welcome to our application",
+	"height": "Height: {{height}} cm",
+	"mass": "Mass: {{mass}} kg",
+	"climate": "Climate",
+	"population": "Population",
+	"diameter": "Diameter",
+	"gravity": "Gravity",
+	"orbital_period": "Orbital Period",
+	"rotation_period": "Rotation Period",
+	"surface_water": "Surface Water",
+	"terrain": "Terrain"
+}

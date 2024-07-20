@@ -1,0 +1,14 @@
+{
+	"hello": "Hola",
+	"welcome": "Bienvenido a nuestra aplicación",
+	"height": "Altura: {{height}} cm",
+	"mass": "Masa: {{mass}} kg",
+	"climate": "Clima",
+	"population": "Población",
+	"diameter": "Diámetro",
+	"gravity": "Gravedad",
+	"orbital_period": "Período orbital",
+	"rotation_period": "Período de rotación",
+	"surface_water": "Agua superficial",
+	"terrain": "Terreno"
+}
