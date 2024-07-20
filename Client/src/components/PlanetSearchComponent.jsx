@@ -2,12 +2,11 @@
 
 import React from 'react';
 import SWLogo from '../img/logos/StarWarsLogo.png';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 function PlanetSearchComponent({ data }) {
+	const { t } = useTranslation();
 	const planet = data[0];
-	// const { t } = useTranslation();
-
 	const imgURL = SWLogo;
 
 	return (
@@ -26,17 +25,28 @@ function PlanetSearchComponent({ data }) {
 					</h2>
 				</div>
 				<p className='mb-4 text-gray-300'>
-					Climate: {planet.climate} | Population: {planet.population}
+					{t('climate')}: {planet.climate} | {t('population')}:{' '}
+					{planet.population}
 				</p>
 				<div className='text-gray-300'>
-					<p className='mb-1'>Diameter: {planet.diameter} km</p>
-					<p className='mb-1'>Gravity: {planet.gravity}</p>
-					<p className='mb-1'>Orbital Period: {planet.orbital_period} days</p>
 					<p className='mb-1'>
-						Rotation Period: {planet.rotation_period} hours
+						{t('diameter')}: {planet.diameter} km
 					</p>
-					<p>Surface Water: {planet.surface_water}%</p>
-					<p>Terrain: {planet.terrain}</p>
+					<p className='mb-1'>
+						{t('gravity')}: {planet.gravity}
+					</p>
+					<p className='mb-1'>
+						{t('orbital_period')}: {planet.orbital_period} days
+					</p>
+					<p className='mb-1'>
+						{t('rotation_period')}: {planet.rotation_period} hours
+					</p>
+					<p>
+						{t('surface_water')}: {planet.surface_water}%
+					</p>
+					<p>
+						{t('terrain')}: {planet.terrain}
+					</p>
 				</div>
 			</div>
 		</div>

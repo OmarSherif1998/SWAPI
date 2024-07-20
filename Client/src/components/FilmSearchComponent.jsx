@@ -1,9 +1,12 @@
 /** @format */
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { movieImages } from '../data/data';
 import SWLogo from '../img/logos/StarWarsLogo.png';
+
 function FilmSearchComponent({ data }) {
+	const { t } = useTranslation();
 	const film = data[0];
 
 	const imgURL = movieImages[film.title] || SWLogo;
@@ -25,10 +28,18 @@ function FilmSearchComponent({ data }) {
 				</div>
 
 				<div className='text-lg text-gray-300'>
-					<p>Release Date: {film.release_date}</p>
-					<p>Director: {film.director}</p>
-					<p className='mb-1'>Episode Number: {film.episode_id}</p>
-					<p className='mb-1'>Opening Crawl: {film.opening_crawl}</p>
+					<p>
+						{t('release_date')}: {film.release_date}
+					</p>
+					<p>
+						{t('director')}: {film.director}
+					</p>
+					<p className='mb-1'>
+						{t('episode_number')}: {film.episode_id}
+					</p>
+					<p className='mb-1'>
+						{t('opening_crawl')}: {film.opening_crawl}
+					</p>
 				</div>
 			</div>
 		</div>

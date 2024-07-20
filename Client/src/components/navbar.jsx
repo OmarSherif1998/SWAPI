@@ -1,11 +1,13 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useSWAPIData from '../hooks/useSWAPIData';
-// import LanguageSwitcher from '../locals/languasgeSwitcher/LanguageSwitcher';
+import LanguageSwitcher from '../languasgeSwitcher/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
+	const { t } = useTranslation();
 	const location = useLocation();
 	const { data, isLoading, error } = useSWAPIData();
 	const [hideSearch, setHideSearch] = useState(false);
@@ -13,13 +15,15 @@ const Navbar = () => {
 	const [films, setFilms] = useState([]);
 	const [people, setPeople] = useState([]);
 	const [planets, setPlanets] = useState([]);
-	const [searchPlaceholder, setSearchPlaceholder] = useState('Search..');
+	const [searchPlaceholder, setSearchPlaceholder] = useState(
+		t('search_placeholder_default')
+	);
 	const [searchValue, setSearchValue] = useState('');
 	const [searchData, setSearchData] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
 	const [showDropdown, setShowDropdown] = useState(false);
 
-	// const dropdownRef = useRef(null);
+	const dropdownRef = useRef(null);
 
 	useEffect(() => {
 		if (data) {
@@ -35,17 +39,17 @@ const Navbar = () => {
 
 		switch (location.pathname) {
 			case '/characters':
-				setSearchPlaceholder('Search a character');
+				setSearchPlaceholder(t('search_placeholder_character'));
 				setSearchData(people);
 				setHideSearch(false);
 				break;
 			case '/movies':
-				setSearchPlaceholder('Search a movie');
+				setSearchPlaceholder(t('search_placeholder_movie'));
 				setSearchData(films);
 				setHideSearch(false);
 				break;
 			case '/planets':
-				setSearchPlaceholder('Search a planet');
+				setSearchPlaceholder(t('search_placeholder_planet'));
 				setSearchData(planets);
 				setHideSearch(false);
 				break;
@@ -56,26 +60,26 @@ const Navbar = () => {
 				setHideSearch(true);
 				break;
 			default:
-				setSearchPlaceholder('Search...');
+				setSearchPlaceholder(t('search_placeholder_default'));
 				break;
 		}
 		setSearchValue('');
-	}, [location.pathname, data, films, people, planets]);
+	}, [location.pathname, data, films, people, planets, t]);
 
-	// useEffect(() => {
-	// 	const handleClickOutside = (event) => {
-	// 		if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-	// 			setShowDropdown(false);
-	// 		} else {
-	// 			setShowDropdown(true);
-	// 		}
-	// 	};
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+				setShowDropdown(false);
+			} else {
+				setShowDropdown(true);
+			}
+		};
 
-	// 	document.addEventListener('mousedown', handleClickOutside);
-	// 	return () => {
-	// 		document.removeEventListener('mousedown', handleClickOutside);
-	// 	};
-	// }, []);
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
 
 	const handleInputChange = (e) => {
 		const value = e.target.value;
@@ -116,27 +120,27 @@ const Navbar = () => {
 			<ul className='flex space-x-4'>
 				<li>
 					<Link to={'/quiz'} className='hover:text-yellow-400'>
-						Quiz
+						{t('quiz')}
 					</Link>
 				</li>
 				<li>
 					<Link to={'characters'} className='hover:text-yellow-400'>
-						Characters
+						{t('characters')}
 					</Link>
 				</li>
 				<li>
 					<Link to={'movies'} className='hover:text-yellow-400'>
-						Movies
+						{t('movies')}
 					</Link>
 				</li>
 				<li>
 					<Link to={'planets'} className='hover:text-yellow-400'>
-						Planets
+						{t('planets')}
 					</Link>
 				</li>
 			</ul>
 			{!hideSearch ? (
-				<div className='relative flex items-center'>
+				<div className='relative flex items-center' ref={dropdownRef}>
 					<input
 						type='text'
 						placeholder={searchPlaceholder}
@@ -148,7 +152,7 @@ const Navbar = () => {
 						className='px-4 py-2 ml-2 text-black bg-yellow-500 rounded hover:bg-yellow-600'
 						onClick={handleSearch}
 					>
-						Search
+						{t('search_button')}
 					</button>
 					{showDropdown && filteredData.length > 0 && (
 						<div className='absolute left-0 w-full mt-2 overflow-y-auto text-white bg-gray-800 rounded-md shadow-lg top-full max-h-60'>
@@ -165,7 +169,7 @@ const Navbar = () => {
 					)}
 				</div>
 			) : null}
-			{/* <LanguageSwitcher /> */}
+			<LanguageSwitcher />
 		</nav>
 	);
 };

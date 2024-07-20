@@ -1,9 +1,12 @@
 /** @format */
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { characterImages } from '../data/data';
 import SWLogo from '../img/logos/StarWarsLogo.png';
+
 function CharacterSearchComponent({ data }) {
+	const { t } = useTranslation();
 	const character = data[0];
 
 	const imgURL = characterImages[character.name] || SWLogo;
@@ -24,14 +27,25 @@ function CharacterSearchComponent({ data }) {
 					</h2>
 				</div>
 				<p className='mb-4 text-gray-300'>
-					Height: {character.height} cm | Mass: {character.mass} kg
+					{t('height')}: {character.height} cm | {t('mass')}: {character.mass}{' '}
+					kg
 				</p>
 				<div className='text-gray-300'>
-					<p className='mb-1'>Gender: {character.gender}</p>
-					<p className='mb-1'>Hair Color: {character.hair_color}</p>
-					<p className='mb-1'>Skin Color: {character.skin_color}</p>
-					<p className='mb-1'>Eye Color: {character.eye_color}</p>
-					<p>Birth Year: {character.birth_year}</p>
+					<p className='mb-1'>
+						{t('gender')}: {character.gender}
+					</p>
+					<p className='mb-1'>
+						{t('hair_color')}: {character.hair_color}
+					</p>
+					<p className='mb-1'>
+						{t('skin_color')}: {character.skin_color}
+					</p>
+					<p className='mb-1'>
+						{t('eye_color')}: {character.eye_color}
+					</p>
+					<p>
+						{t('birth_year')}: {character.birth_year}
+					</p>
 				</div>
 			</div>
 		</div>
